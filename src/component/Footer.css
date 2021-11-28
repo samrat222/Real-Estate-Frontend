@@ -1,0 +1,25 @@
+.footer {
+  background-color: black;
+  color: #fff;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.footer p {
+  display: inline;
+  color: orange;
+  left: 10rem;
+}
+.heading {
+  position: absolute;
+  top: 10rem;
+}
+
+.social > p {
+  position: absolute;
+  left: 10rem;
+  top: 23rem;
+  font-size: 20px;
+}
