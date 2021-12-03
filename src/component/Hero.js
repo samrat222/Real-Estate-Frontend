@@ -6,10 +6,11 @@ const Hero = () => {
     <Container>
       <Text>
         <h2>
-          Beautiful home made
+          Beautiful homes made
           <br /> for you
         </h2>
       </Text>
+      <Image src="./images/hero_image.jpeg" />
     </Container>
   );
 };
@@ -19,22 +20,29 @@ export default Hero;
 const Container = styled.div`
   width: 100%;
   height: 70vh;
-  background-color: #d67a7a;
+  background-color: #fff;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   /* background-image: "home.jpg"; */
-  background: url("https://assets.architecturaldigest.in/photos/60083e76274aca243711c3a4/16:9/w_2560%2Cc_limit/ghaziabad-uttar-pradesh-homes-photos-1000x768.jpg")
-    no-repeat center center/cover;
 `;
 // https://images.unsplash.com/photo-1556742212-5b321f3c261b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80
 const Text = styled.div`
   h2 {
     position: absolute;
-    left: 50px;
+    left: 40px;
     font-weight: 500;
     font-size: 5rem;
-    color: #fff;
+    color: black;
     top: 10rem;
   }
+`;
+
+const Image = styled.img`
+  /* object-fit: cover; */
+  width: 43%;
+  height: 70%;
+  object-fit: contain;
+  position: absolute;
+  right: 5px;
 `;

@@ -1,77 +1,98 @@
-import React from "react";
-import "./Card.css";
+import { Bathtub, KingBed, Kitchen } from "@material-ui/icons";
+import styled from "styled-components";
+import { cardData } from "../Data";
 
-const Card = () => {
+const Card = (data) => {
   return (
-    <>
-      <div className="main">
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_1.jpeg" alt="" />
-            <h1>Malto House</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_2.jpg" alt="" />
-            <h1>Royal mansion</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_3.jpg" alt="" />
-            <h1>Royal palace</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_4.jpg" alt="" />
-            <h1>Taj Vivanta</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_5.jpg" alt="" />
-            <h1>Chandini</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_6.jpg" alt="" />
-            <h1>Raj cottege</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_7.jpg" alt="" />
-            <h1>The willows</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-        <div className="card">
-          <div className="image">
-            <img src="./images/card_8.jpg" alt="" />
-            <h1>Sam Villa</h1>
-            <hr />
-            <p>This is description</p>
-          </div>
-        </div>
-      </div>
-    </>
+    <Container data={data}>
+      {cardData.map((item) => (
+        <Cards>
+          <Component>
+            <Image src={item.img} />
+            <Title>{item.title}</Title>
+            <Hr />
+            <DetailRoom>
+              <Details>
+                <KingBed />
+                <Size>4</Size>
+              </Details>
+              <Details>
+                <Bathtub />
+                <Size>2</Size>
+              </Details>
+              <Details>
+                <Kitchen />
+                <Size>1</Size>
+              </Details>
+            </DetailRoom>
+            <Button>SHOW NOW</Button>
+          </Component>
+        </Cards>
+      ))}
+    </Container>
   );
 };
 
 export default Card;
+
+const Container = styled.div`
+  /* margin: 2%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const Cards = styled.div`
+  width: 18rem;
+  height: 25rem;
+  box-shadow: 0 0 50px #ccc;
+  border-radius: 1.5rem;
+  margin: 2rem;
+  cursor: pointer;
+`;
+
+const Component = styled.div``;
+
+const Image = styled.img`
+  width: 100%;
+  /* height: 100%; */
+  border-radius: 1.5rem;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+`;
+
+const DetailRoom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 20px;
+`;
+const Details = styled.span`
+  margin: 5px;
+  display: flex;
+  align-items: center;
+`;
+
+const Hr = styled.hr`
+  background-color: #eee;
+  border: none;
+  height: 1px;
+`;
+
+const Size = styled.span`
+  margin: 7px;
+`;
+
+const Button = styled.button`
+  padding: 3px;
+  cursor: pointer;
+  background-color: white;
+  color: gray;
+  font-weight: 600;
+  margin-left: 30%;
+  border-radius: 5px;
+`;

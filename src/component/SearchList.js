@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Select from "./Select";
 import Search from "./Search";
 
-const Products = () => {
+const SearchList = () => {
   return (
     <Wrapper>
       <Heading>Find your next place to live</Heading>
@@ -23,7 +23,7 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default SearchList;
 
 const Wrapper = styled.div`
   margin: 20px;
