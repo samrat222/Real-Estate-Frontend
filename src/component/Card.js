@@ -36,7 +36,6 @@ const Card = (data) => {
 export default Card;
 
 const Container = styled.div`
-  /* margin: 2%; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,7 +55,7 @@ const Component = styled.div``;
 
 const Image = styled.img`
   width: 100%;
-  /* height: 100%; */
+  object-fit: cover;
   border-radius: 1.5rem;
 `;
 
@@ -93,6 +92,6 @@ const Button = styled.button`
   background-color: white;
   color: gray;
   font-weight: 600;
-  margin-left: 30%;
+  margin-left: 33%;
   border-radius: 5px;
 `;

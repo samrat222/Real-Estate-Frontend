@@ -9,13 +9,12 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <Logo>
-            {/* <LogoImage src="./images/logo.jpeg" /> */}
             <LogoHeading>AASHROY</LogoHeading>
           </Logo>
         </Left>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <MenuItemButton>REGISTER</MenuItemButton>
+          <MenuItemButton>SIGN IN</MenuItemButton>
           <MenuItem>
             <Badge badgeContent={2} color="primary">
               <ShoppingCartOutlined />
@@ -30,16 +29,27 @@ const Navbar = () => {
 export default Navbar;
 
 const Container = styled.div`
-  height: 60px;
-  /* position: fixed; */
+  background: #fff;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  /* position: fixed; */
+  height: 80px;
+  z-index: 1;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 10px;
+  padding: 0 50px;
 `;
 
 const Left = styled.div`
@@ -57,7 +67,7 @@ const Right = styled.div`
 
 const Logo = styled.div`
   width: 40px;
-  height: 40px;
+  /* height: 40px; */
   /* border-radius: 50%; */
   /* overflow: hidden; */
 `;
@@ -68,6 +78,20 @@ const MenuItem = styled.div`
   margin-left: 25px;
 `;
 
+const MenuItemButton = styled.button`
+  width: 20%;
+  height: 50%;
+  border-radius: 10px;
+  border-style: none;
+  cursor: pointer;
+  background-color: #6c61f1;
+  color: #fff;
+  font-size: 1rem;
+  margin: 10px;
+  padding: 10px;
+  /* display: inline; */
+`;
+
 const LogoImage = styled.img`
   height: 100%;
   width: 100%;
@@ -75,5 +99,6 @@ const LogoImage = styled.img`
 `;
 
 const LogoHeading = styled.h1`
-  font-size: 20px;
+  font-size: 25px;
+  margin-left: 10px;
 `;

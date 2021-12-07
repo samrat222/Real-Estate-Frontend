@@ -9,8 +9,13 @@ const Hero = () => {
           Beautiful homes made
           <br /> for you
         </h2>
+        <p>
+          India's Finest Real Estate Properties
+          <br />
+          Buy Your Home on the Go
+        </p>
       </Text>
-      <Image src="./images/hero_image.jpeg" />
+      <Image src="./images/hero_image.gif" />
     </Container>
   );
 };
@@ -19,7 +24,7 @@ export default Hero;
 
 const Container = styled.div`
   width: 100%;
-  height: 70vh;
+  height: 100vh;
   background-color: #fff;
   display: flex;
   justify-content: space-between;
@@ -30,11 +35,19 @@ const Container = styled.div`
 const Text = styled.div`
   h2 {
     position: absolute;
-    left: 40px;
-    font-weight: 500;
+    left: 60px;
+    font-weight: 700;
     font-size: 5rem;
     color: black;
     top: 10rem;
+  }
+  p {
+    position: absolute;
+    left: 70px;
+    bottom: 150px;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: #6d6d75;
   }
 `;
 
@@ -46,3 +59,5 @@ const Image = styled.img`
   position: absolute;
   right: 5px;
 `;
+
+const Para = styled.p``;

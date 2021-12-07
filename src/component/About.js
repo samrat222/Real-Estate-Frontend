@@ -7,12 +7,12 @@ const About = () => {
       <Container>
         <Heading>You're in good hands</Heading>
         <Para>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-          sint quidem veritatis repellat optio minus eveniet nesciunt voluptatem
-          totam? Laudantium molestiae natus corrupti dolores cumque doloremque
-          cupiditate distinctio? Cupiditate eligendi quaerat magni doloribus
-          tenetur modi sed, debitis cum labore. Minus voluptate cupiditate ea
-          eos voluptatem temporibus quo labore libero officiis!
+          Save your time and commotion of hiring real estate agents and avoid
+          all the bargaining with brokers. With just few clicks on your screen
+          you will own the property that you have always wanted. Aashroy is
+          India's finest and safest place to buy the home of your dreams. We
+          have homes all across India with different sizes and designs to
+          choose.
         </Para>
       </Container>
     </>

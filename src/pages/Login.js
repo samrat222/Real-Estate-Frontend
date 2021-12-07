@@ -5,7 +5,7 @@ const Login = () => {
   return (
     <Container>
       <Form method="post">
-        <Heading>Create Account</Heading>
+        <Heading>Login</Heading>
 
         <Label for="username">Full Name</Label>
         <Input name="username" type="text" placeholder="Your Name" required />
