@@ -2,24 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { useSelector } from "react-redux";
+import { Link, Route } from "react-router-dom";
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+  console.log(quantity);
   return (
     <Container>
       <Wrapper>
         <Left>
           <Logo>
-            <LogoHeading>AASHROY</LogoHeading>
+            <StyledLink to="/">
+              <LogoHeading>AASHROY</LogoHeading>
+            </StyledLink>
           </Logo>
         </Left>
         <Right>
           <MenuItemButton>REGISTER</MenuItemButton>
           <MenuItemButton>SIGN IN</MenuItemButton>
-          <MenuItem>
-            <Badge badgeContent={2} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>
@@ -47,7 +55,6 @@ const Wrapper = styled.div`
   height: 80px;
   z-index: 1;
   width: 100%;
-  max-width: 1300px;
   margin: 0 10px;
   padding: 0 50px;
 `;
@@ -101,4 +108,17 @@ const LogoImage = styled.img`
 const LogoHeading = styled.h1`
   font-size: 25px;
   margin-left: 10px;
+  border-style: none;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
 `;

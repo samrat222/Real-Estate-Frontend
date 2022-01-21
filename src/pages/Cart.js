@@ -1,56 +1,88 @@
-import { Add, Remove } from "@material-ui/icons";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
+import StripeCheckout from "react-stripe-checkout";
+import { useState } from "react";
+import { useEffect } from "react";
+import { userRequest } from "../RequestMethod";
+import { Link, useNavigate } from "react-router-dom";
+import { removeFromCart } from "../redux/cartRedux";
+// import { useNavigate } from "react-router-dom";
+
+const KEY =
+  "pk_test_51K4ldWSAchQ8rE03hS63KLF3gjrc0drZzTz3LHccJYw4kQUsw0Ip1yCEnC4koDk9EKluGFjy2NwJiDdi339ukgvV00BTuW09YS";
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const history = useNavigate();
+  const dispatch = useDispatch();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: cart.total * 100,
+        });
+        history.push("/success", { data: res.data });
+      } catch {}
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, history]);
+
+  const handleRemoveFromCart = (Product) => {
+    dispatch(removeFromCart(Product));
+  };
+
   return (
     <Container>
       <Navbar />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
-          <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your wishlist(2)</TopText>
-          </TopTexts>
+          <Link to={`/filter/large`}>
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="./images/cart.jpeg" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> The Paradise
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 83579837
-                  </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 3 BHK
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              {/* <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$2000</ProductPrice>
-              </PriceDetail> */}
-            </Product>
+            {cart.products.map((product) => (
+              <Product>
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
+                    <ProductColor color=" #6c61f1;" />
+                    <ProductSize>
+                      <b>Size:</b> {product.size}
+                    </ProductSize>
+                    <ProductPrice>$ {product.price}</ProductPrice>
+                    {/* <RemoveBtn onClick={() => handleRemoveFromCart(Product)}>
+                      REMOVE
+                    </RemoveBtn> */}
+                  </Details>
+                </ProductDetail>
+              </Product>
+            ))}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$2000</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated shipping</SummaryItemText>
@@ -62,9 +94,20 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$2000</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="AASHROY"
+              image="https://i.graphicmama.com/blog/wp-content/uploads/2020/10/30131032/P-amazing-3D-logo-design-concept-in-20211.jpg"
+              billingAddress
+              shippingAddress
+              description={`your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>
@@ -94,12 +137,13 @@ const Top = styled.div`
 `;
 
 const TopButton = styled.button`
+  border-radius: 5px;
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) =>
-    props.type === "filled" ? "black" : "transparent"};
+    props.type === "filled" ? "#6c61f1" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
 `;
 
@@ -132,6 +176,7 @@ const ProductDetail = styled.div`
 const Image = styled.img`
   width: 550px;
   height: 300px;
+  padding-bottom: 15px;
 `;
 
 const Details = styled.div`
@@ -139,6 +184,10 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+`;
+const ProductPrice = styled.div`
+  font-size: 30px;
+  font-weight: 200;
 `;
 
 const ProductName = styled.span``;
@@ -181,8 +230,21 @@ const SummaryItemPrice = styled.span``;
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: black;
+  background-color: #6c61f1;
   color: white;
   font-weight: 600;
+  border-radius: 5px;
   cursor: pointer;
+  border: none;
+`;
+
+const RemoveBtn = styled.button`
+  width: 80%;
+  padding: 10px;
+  background-color: #6c61f1;
+  color: white;
+  border-style: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 13px;
 `;

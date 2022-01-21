@@ -1,38 +1,57 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
+import { addProduct } from "../redux/cartRedux";
+import { publicRequest } from "../RequestMethod";
+import { useDispatch } from "react-redux";
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/" + id);
+        setProduct(res.data);
+      } catch {}
+    };
+    getProduct();
+  });
+
+  const handleClick = () => {
+    dispatch(addProduct({ product, price: product.price }));
+  };
+
   return (
     <Container>
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src="./images/product_1.jpeg" />
+          <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Hell cottege</Title>
-          <Desc>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            assumenda nesciunt adipisci placeat, expedita rem impedit voluptates
-            maxime reprehenderit labore quisquam dolores eum culpa commodi
-            reiciendis saepe recusandae libero nam.
-          </Desc>
-          <Price>$5000</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>${product.price}</Price>
           <FilterContainer>
             <Filter>
-              {/* <FilterTitle>Size</FilterTitle>
+              <FilterTitle>Size</FilterTitle>
               <FilterSize>
-                <FilterSizeOption>1 BHK</FilterSizeOption>
-                <FilterSizeOption>2 BHK</FilterSizeOption>
-                <FilterSizeOption>3 BHK</FilterSizeOption>
-                <FilterSizeOption>4 BHK</FilterSizeOption>
-              </FilterSize> */}
+                {product.size?.map((s) => (
+                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                ))}
+              </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
@@ -56,7 +75,7 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 90vh;
+  height: 100%;
   object-fit: cover;
 `;
 
